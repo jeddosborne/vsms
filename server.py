@@ -1,6 +1,8 @@
 import socket
 from threading import Thread
 from cryptography.fernet import Fernet
+from dotenv import load_dotenv
+import os
 
 PORT = 5000
 BUFFER_SIZE = 1024
@@ -14,7 +16,12 @@ print("Host:", HOST + '\n')
 clients = []
 
 #Crypto
-KEY = b'oywozj7UXyzqD0PdctgAeuvx5UrMOCvy_EKEn_7Ogw8='
+#Load environment variables from .env file
+load_dotenv()
+#Get encryption key from environment
+KEY = os.getenv("ENCRYPTION_KEY")
+if KEY is None:
+    raise ValueError("ENCRYPTION_KEY is not set in the environment.")
 f = Fernet(KEY)
 
 def handle_client(conn, addr):

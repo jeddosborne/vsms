@@ -1,9 +1,16 @@
 import socket
 from threading import Thread
 from cryptography.fernet import Fernet
+from dotenv import load_dotenv
+import os
 
 #Crypto
-KEY = b'oywozj7UXyzqD0PdctgAeuvx5UrMOCvy_EKEn_7Ogw8='
+#Load environment variables from .env file
+load_dotenv()
+#Get encryption key from environment
+KEY = os.getenv("ENCRYPTION_KEY")
+if KEY is None:
+    raise ValueError("ENCRYPTION_KEY is not set in the environment.")
 f = Fernet(KEY)
 
 client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
