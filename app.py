@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from client_back import client_back
+from time import sleep
 
 ctk.set_appearance_mode("system")
 ctk.set_default_color_theme("green")
@@ -25,6 +26,8 @@ message_display.configure(state="disabled")
 
 def send_message():
     msg = txt_box.get()
+    if msg == "" or str.isspace(msg) or not msg:
+        return    
     client_back.send_msg(client_back.client_sock, msg)
     #Clear the text entry after sending
     txt_box.delete(0, "end")
@@ -46,6 +49,7 @@ def update_screen():
     root.after(100, update_screen)
 
     if client_back.exited:
+        sleep(1)
         root.destroy()
 
 update_screen()

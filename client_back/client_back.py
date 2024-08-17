@@ -38,9 +38,9 @@ def send_msg(client_sock, msg):
     client_sock.send(encrypted_msg)
     if msg == "exit":
         client_sock.close()
-        exited = True
         print("Connection closed")
         all_msgs.append("Connection closed")
+        exited = True
     else:
         all_msgs.append(msg)
 
