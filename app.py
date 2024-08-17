@@ -15,13 +15,20 @@ frame.pack(padx=0, pady=0, fill="both", expand=True)
 txt_box = ctk.CTkEntry(master=frame, placeholder_text="Message...", width=500, height=50, font=("", -15))
 txt_box.place(relx=0.45, rely=0.85, anchor="center")
 
-send_btn = ctk.CTkButton(master=frame, text="▷", width=50, height=50, font=("", -30), command=lambda: client_back.send_msg(client_back.client_sock, txt_box.get()))
+send_btn = ctk.CTkButton(master=frame, text="▷", width=50, height=50, font=("", -30), command=lambda: send_message())
 send_btn.place(relx=0.925, rely=0.85, anchor="center")
 
 message_display = ctk.CTkTextbox(master=frame, width=500, height=300)
 message_display.place(relx=0.5, rely=0.35, anchor="center")
 #Read only, state="normal" means editable
 message_display.configure(state="disabled")
+
+def send_message():
+    msg = txt_box.get()
+    client_back.send_msg(client_back.client_sock, msg)
+    #Clear the text entry after sending
+    txt_box.delete(0, "end")
+
 
 #Update disply to show all messages
 all_msgs_cache = []
