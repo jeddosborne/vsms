@@ -32,11 +32,6 @@ def handle_client(conn, addr):
             decrypted_data = f.decrypt(encrypted_data)
             decoded_data = decrypted_data.decode()
 
-            if decoded_data == "exit" or not encrypted_data:
-                print(f"{addr}: Connection closed")
-                #Disconnect client if they send "exit" or send empty data
-                break
-
             print(f"{addr}: {decoded_data}")
 
             for client in clients:
@@ -46,7 +41,11 @@ def handle_client(conn, addr):
 
     except ConnectionResetError:
         #Catch err in connection
-        print(f"{addr}: Connection reset by client")
+        print(f"{addr}: Connection closed")
+        for client in clients:
+            if client != conn:
+                #Broadcast data to other clients
+                client.send(f.encrypt(f"{addr}: Connection closed".encode()))
     finally:
         #Cleanup clients list
         clients.remove(conn)
@@ -57,6 +56,10 @@ if __name__ == "__main__":
         #Wait for a cnnection
         conn, addr = server_sock.accept()
         print("Connection:", addr)
+        for client in clients:
+            if client != conn:
+                #Broadcast data to other clients
+                client.send(f.encrypt(f"Connection: {addr}".encode()))
         clients.append(conn)
         client_thread = Thread(target=handle_client, args=(conn, addr))
         client_thread.start()

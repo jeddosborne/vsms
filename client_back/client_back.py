@@ -26,8 +26,6 @@ all_msgs = []
 client_sock.connect((SERVER_HOST, SERVER_PORT))
 print("Connected to server")
 all_msgs.append("Connected to server")
-print("Type and press enter to send")
-all_msgs.append("Type and press enter to send")
 print("Use 'exit' to close connection")
 all_msgs.append("Use 'exit' to close connection\n")
 
@@ -42,7 +40,7 @@ def send_msg(client_sock, msg):
         all_msgs.append("Connection closed")
         exited = True
     else:
-        all_msgs.append(msg)
+        all_msgs.append(f"You: {msg}\n")
 
         
 
@@ -57,7 +55,8 @@ def recv_data(client_sock):
         decrypted_data = f.decrypt(data)
         decoded_data = decrypted_data.decode()
         print(decoded_data)
-        all_msgs.append(decoded_data)
+        all_msgs.append(f"{decoded_data}\n")
 
+#Thread to recieve messages
 recv_thread = Thread(target=recv_data, args=(client_sock,))
 recv_thread.start()
