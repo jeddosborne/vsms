@@ -31,7 +31,6 @@ def handle_client(conn, addr):
             encrypted_data = conn.recv(BUFFER_SIZE)
             decrypted_data = f.decrypt(encrypted_data)
             decoded_data = decrypted_data.decode()
-
             print(f"{addr}: {decoded_data}")
 
             for client in clients:
@@ -57,9 +56,9 @@ if __name__ == "__main__":
         conn, addr = server_sock.accept()
         print("Connection:", addr)
         for client in clients:
-            if client != conn:
-                #Broadcast data to other clients
-                client.send(f.encrypt(f"Connection: {addr}".encode()))
+            #Broadcast data to other clients
+            client.send(f.encrypt(f"Connection: {addr}".encode()))
         clients.append(conn)
+        
         client_thread = Thread(target=handle_client, args=(conn, addr))
         client_thread.start()
