@@ -46,8 +46,6 @@ def update_screen():
 
     if len(all_msgs_cache) != len(client_back.all_msgs):
         new_msgs = [item for item in client_back.all_msgs if item not in all_msgs_cache]
-        #for i in range(len(all_msgs_cache)-1, len(client_back.all_msgs)-1):
-        #    new_msgs.append(client_back.all_msgs[i])
 
         message_display.configure(state="normal")
         for m in new_msgs:
