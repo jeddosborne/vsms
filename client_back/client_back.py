@@ -17,9 +17,8 @@ client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #Enable nodelay for faster transmition
 client_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 BUFFER_SIZE = 1024
-#SERVER_HOST = "JJJO_Omen16" #My laptop hostname
 #SERVER_HOST = input("Server hostname: ")
-SERVER_HOST = "86.145.213.203" #My wifi's public IP
+SERVER_HOST = "86.145.213.203" #Server public IP
 SERVER_PORT = 5000 #86.145.213.203:5000 port forwaded to my laptop's port 5000
 
 exited = False
