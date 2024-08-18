@@ -1,4 +1,4 @@
-from PIL import Image 
+from PIL import Image ojbvljvlhvl
 import customtkinter as ctk
 from client_back import client_back
 from time import sleep
