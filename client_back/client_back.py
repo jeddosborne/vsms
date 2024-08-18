@@ -14,6 +14,8 @@ if KEY is None:
 f = Fernet(KEY)
 
 client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#Enable nodelay for faster transmition
+client_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 BUFFER_SIZE = 1024
 #SERVER_HOST = "JJJO_Omen16" #My laptop hostname
 #SERVER_HOST = input("Server hostname: ")
@@ -26,8 +28,8 @@ all_msgs = []
 client_sock.connect((SERVER_HOST, SERVER_PORT))
 print("Connected to server")
 all_msgs.append("Connected to server")
-print("Use 'exit' to close connection")
 all_msgs.append("Use 'exit' to close connection\n")
+all_msgs.append("Your first message will be your display name")
 
 def send_msg(client_sock, msg):
     global exited
