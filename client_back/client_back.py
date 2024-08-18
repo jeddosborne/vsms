@@ -27,8 +27,8 @@ all_msgs = []
 client_sock.connect((SERVER_HOST, SERVER_PORT))
 print("Connected to server")
 all_msgs.append("Connected to server")
-all_msgs.append("Use 'exit' to close connection\n")
-all_msgs.append("Your first message will be your display name")
+all_msgs.append("Use 'exit' to close connection")
+all_msgs.append("Your first message will be your display name\n")
 
 def send_msg(client_sock, msg):
     global exited
