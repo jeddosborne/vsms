@@ -10,7 +10,7 @@ ctk.set_default_color_theme("dark-blue")
 root = ctk.CTk()
 root.geometry("600x500")
 root.resizable(False, False)
-root.title("VSMS")
+root.title("vSMS")
 root.iconbitmap("assets/paper_plane_send_message_icon_185989.ico")
 
 frame = ctk.CTkFrame(master=root)
