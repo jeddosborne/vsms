@@ -19,7 +19,7 @@ frame.pack(padx=0, pady=0, fill="both", expand=True)
 txt_box = ctk.CTkEntry(master=frame, placeholder_text="Message...", width=500, height=50, font=("", -15))
 txt_box.place(relx=0.45, rely=0.85, anchor="center")
 
-send_btn = ctk.CTkButton(master=frame, text="▷", width=50, height=50, font=("", -40),command=lambda: send_message())
+send_btn = ctk.CTkButton(master=frame, text="▷", width=50, height=50, font=("", -40), command=lambda: send_message())
 send_btn.place(relx=0.925, rely=0.85, anchor="center")
 
 message_display = ctk.CTkTextbox(master=frame, width=500, height=300)
