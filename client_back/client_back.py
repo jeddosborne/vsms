@@ -19,6 +19,7 @@ client_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 BUFFER_SIZE = 1024
 #SERVER_HOST = input("Server hostname: ")
 SERVER_HOST = "86.145.213.203" #Server public IP
+#SERVER_HOST = "172.17.0.87" #GLitch
 SERVER_PORT = 5000 #86.145.213.203:5000 port forwaded to my laptop's port 5000
 
 exited = False
