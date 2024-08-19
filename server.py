@@ -8,8 +8,8 @@ PORT = 5000
 BUFFER_SIZE = 1024
 HOST = "0.0.0.0"
 server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#Enable nodelay for faster transmition
-server_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+#Enable nodelay for faster transmition (ledd bandwidth efficient)
+#server_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 server_sock.bind((HOST, PORT))
 server_sock.listen(10)
 print("Server online")

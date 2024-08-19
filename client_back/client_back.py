@@ -14,8 +14,8 @@ if KEY is None:
 f = Fernet(KEY)
 
 client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#Enable nodelay for faster transmition
-client_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+#Enable nodelay for faster transmition (less bandwidth efficient)
+#client_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 BUFFER_SIZE = 1024
 #SERVER_HOST = input("Server hostname: ")
 SERVER_HOST = "86.145.213.203" #Server public IP
