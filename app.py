@@ -4,7 +4,7 @@ from client_back import client_back
 from time import sleep
 
 ctk.set_appearance_mode("system")
-ctk.set_default_color_theme("dark-blue")
+ctk.set_default_color_theme("green")
 
 #Build UI
 root = ctk.CTk()
