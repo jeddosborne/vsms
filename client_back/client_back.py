@@ -17,31 +17,60 @@ client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 #Enable nodelay for faster transmition (less bandwidth efficient)
 #client_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 BUFFER_SIZE = 1024
-SERVER_HOST = input("Server hostname: ")
+#SERVER_HOST = input("Server hostname: ") #User chooses server by IP
 #SERVER_HOST = "86.145.213.203" #Server public IP
+SERVER_HOST = "localhost" #For testing
 SERVER_PORT = 5000 #86.145.213.203:5000 port forwaded to my laptop's port 5000
 
 exited = False
 all_msgs = []
 
+user_prefs = {
+    "theme": "system",
+    "tint": "blue"
+}
+
 client_sock.connect((SERVER_HOST, SERVER_PORT))
 print("Connected to server")
 all_msgs.append("Connected to server")
-all_msgs.append("Use 'exit' to close connection")
-all_msgs.append("Your first message will be your display name\n")
+all_msgs.append("Use '//exit' to close connection\n")
+all_msgs.append("Your first message will be your display name:")
 
 def send_msg(client_sock, msg):
     global exited
     encrypted_msg = f.encrypt(msg.encode())
-    #Send inputted msg
-    client_sock.send(encrypted_msg)
-    if msg == "exit":
+    
+    if msg == "//exit":
         client_sock.close()
         print("Connection closed")
         all_msgs.append("Connection closed")
         exited = True
     else:
-        all_msgs.append(f"You: {msg}\n")
+        if msg[:2] == "//":
+            all_msgs.append(f"CMD: {msg}\n")
+            if len(msg.split()) != 2:
+                all_msgs.append("Commands must have one parameter\n")
+            else:
+                command = msg.split()[0]
+                param = msg.split()[1]
+                match command:
+                    case "//theme":
+                        if param in ["system", "dark", "light"]:
+                            user_prefs["theme"] = param
+                        else:
+                            all_msgs.append(f"Invalid parameter: {param}\n")
+                    case "//tint":
+                        if param in ["blue", "green"]:
+                            user_prefs["tint"] = param
+
+                        else:
+                            all_msgs.append(f"Invalid parameter: {param}\n")
+                    case _:
+                        all_msgs.append(f"Invalid command: {command}\n")
+
+        else:
+            client_sock.send(encrypted_msg)
+            all_msgs.append(f"You: {msg}\n")
 
         
 

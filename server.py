@@ -40,11 +40,14 @@ def handle_client(conn, addr):
                 disp_name = decoded_data
                 init = False
             else:
-                print(f"{addr, disp_name}: {decoded_data}")
-                for client in clients:
-                    if client != conn:
-                        #Broadcast data to other clients
-                        client.send(f.encrypt(f"{addr, disp_name}: {decoded_data}".encode()))
+                if decoded_data[:2] == "//":
+                    print("Command detected:", decoded_data)
+                else:
+                    print(f"{addr, disp_name}: {decoded_data}")
+                    for client in clients:
+                        if client != conn:
+                            #Broadcast data to other clients
+                            client.send(f.encrypt(f"{disp_name}: {decoded_data}".encode()))
 
     except ConnectionResetError:
         #Catch err in connection
